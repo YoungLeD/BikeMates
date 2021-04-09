@@ -1,0 +1,163 @@
+{% extends "base.html" %} {% block head %}
+    <title>BikeMates - Profile editor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/buttons.css') }}" type="text/css" media="all">
+    <script src="{{ url_for('static', filename='js/api/v1.0/users.js') }}" type="application/javascript"></script>
+{% endblock %} {% block navbar %}
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="/profile">Профиль</a></li>
+        <li><a href="/events">Карта</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                {{ user.name }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="red"><a href="/logout">Выйти</a></li>
+            </ul>
+    </ul>
+{% endblock %} {% block main %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }} </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <main>
+            <div class="row" style="margin-top: 64px">
+                <div class="col-md-4 paddings">
+                    <br>
+                    <center>
+                        <img src='/{{ avatar }}' class="img-rounded img-responsive" id="avatar">
+                        <form method="post" action="" enctype="multipart/form-data">
+                            {{ avatar_form.csrf_token }}
+                            <input style="display:none" onchange="form.submit()" id="hiddenfileinput" type="file"
+                                   name="file"/>
+
+                        </form>
+                        <button class="btn btn-success btn-outline" style="margin-top:10px"
+                                onclick="document.getElementById('hiddenfileinput').click()">Загрузить фото
+                        </button>
+                        <div style="padding-bottom:8px">
+                            <!-- Временный костыль! -->
+                        </div>
+                    </center>
+                </div>
+                <div class="col-md-4 center-block">
+                    <h5 class="text-left text-center">Основная информация:</h5>
+                    <br>
+                    <div id="form_wrapper">
+                        <form role="form" method="post" class="form-horizontal">
+                            {{ data_form.csrf_token }}
+                            <div class="form-group" id="name">
+                                <label for="inputName" class="col-xs-3 control-label">Имя:</label>
+                                <div class="col-xs-9">
+                                    {{ data_form.name(type="text",class="form-control", id="name", placeholder="Иван Иванов") }}
+                                    <!-- <input class="form-control" id="inputName" placeholder="Введите имя"> -->
+                                </div>
+                            </div>
+                            <div class="form-group" id="status">
+                                <label for="InputTag" class="col-xs-3 control-label">Почта:</label>
+                                <div class="col-xs-9">
+                                    {{ data_form.email(type="text",class="form-control", id="email", placeholder="example@example.com") }}
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_bday">
+                                <label for="InputDate" class="col-xs-3 control-label">Дата рождения:</label>
+                                <div class="col-xs-9">
+                                    {#                                    {{ data_form.bdate(id="bdate", pattern="[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}") }}#}
+                                    {{ data_form.bdate(type="text",class="form-control", id="bday", placeholder="dd.mm.year") }}
+                                    <!-- ТУТ НУЖНО СДЕЛАТЬ МАСКУ!!!!! -->
+                                    <!-- <input class="form-control" id="InputDate" placeholder="ДД.ММ.ГГГГ"> -->
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_about">
+                                <label for="InputAbout" class="col-xs-3 control-label">О себе:</label>
+                                <div class="col-xs-9">
+                                    {{ data_form.about(type="text",class="form-control", id="about", placeholder="Обо мне") }}
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_gender">
+                                <label for="inputCity" class="col-xs-3 control-label">Пол:</label>
+                                <div class="col-xs-9">
+                                    {{ data_form.gender(class="form-control") }}
+                                </div>
+                            </div>
+                            <center>
+                                <button type="submit" class="btn btn-success btn-outline">
+                                    <i class="glyphicon glyphicon-check"></i> Сохранить данные
+                                </button>
+                            </center>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 center-block paddings">
+                    <h5 class="text-left text-center">Смена пароля:</h5>
+                    <br>
+                    <div id="form_wrapper">
+                        <form role="form" method="POST" class="form-horizontal">
+                            {{ pass_form.csrf_token }}
+                            <div class="form-group" id="name">
+                                <label for="inputPassword" class="col-xs-3 control-label">Старый пароль:</label>
+                                <div class="col-xs-9">
+                                    {{ pass_form.old_pass }}
+                                </div>
+                            </div>
+                            <div class="form-group" id="email">
+                                <label for="inputPassword_new" class="col-xs-3 control-label">Новый пароль:</label>
+                                <div class="col-xs-9">
+                                    {{ pass_form.new_pass }}
+                                </div>
+                            </div>
+                            <div class="form-group" id="conf">
+                                <label for="inputPassword_new_confirm" class="col-xs-3 control-label">Повторите
+                                    его:</label>
+                                <div class="col-xs-9">
+                                    {{ pass_form.confirm }}
+                                </div>
+                            </div>
+                            <center>
+                                <button type="submit" class="btn btn-success btn-outline"><i
+                                        class="glyphicon glyphicon-check"></i> Изменить пароль
+                                </button>
+                            </center>
+                        </form>
+                    </div>
+                    <center>
+                        <footer class="navbar-fixed-bottom">
+                            © Промтим 2к17
+                        </footer>
+                    </center>
+                </div>
+            </div>
+        </main>
+        <center><a href="/profile" class="btn btn-danger btn-outline">Отменить</a></center>
+    </div>
+    <br>
+    <!-- <h4>Тут будут кнопачки, просто не понятно, сколько их должно быть, на каждую форму? или общая....</h4> -->
+    <!-- <center><a href="profile.html" type="submit" class="btn btn-success">Применить</a>
+    <a href="profile.html" class="btn btn-danger">Отменить</a></center> -->
+    </div>
+    <center>
+        <footer class="navbar-fixed-bottom">
+            © Промтим 2к17
+        </footer>
+    </center>
+    <script>
+        function commit_changes() {
+            update_user({{ user.id }}, {
+                'bdate': $('#bdate').value,
+                'name': $('#name').value,
+                'email': $('#email').value,
+                'about': $('#about').value
+            });
+        }
+    </script>
+{% endblock %}

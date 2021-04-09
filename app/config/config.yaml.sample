@@ -1,0 +1,11 @@
+database:
+    host: 127.0.0.1
+    port: 5432
+    user: bikemates
+    password: bikemates
+    dbname: bikemates
+    salt: you-shall-not-pass
+#SQLAlchemy:
+  # SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future
+SQLALCHEMY_TRACK_MODIFICATIONS: False
+SECRET_KEY: 'test'

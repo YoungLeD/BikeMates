@@ -1,0 +1,116 @@
+{% extends "base.html" %} {% block head %}
+    <title>BikeMates</title>
+{% endblock %} {% block navbar %}
+    <ul class="nav navbar-nav">
+        {% if not current.is_authenticated %}
+            <li class="active"><a href="/">Главная</a></li>
+            <li><a href="/about">О нас </a></li>
+        {% else %}
+            <li><a href="/profile">Профиль</a></li>
+            <li><a href="/events">Карта</a></li>
+            <li class="active"><a href="/">Главная</a></li>
+        {% endif %}
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        {% if not current.is_authenticated %}
+            <li><a href="/sign_in"> Войти </a></li>
+            <li><a href="/sign_up"> Зарегистрироваться </a></li>
+        {% else %}
+            <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                {{ current.name }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/edit">Редактировать профиль</a></li>
+                <li class="red"><a href="/logout">Выйти</a></li>
+            </ul>
+        {% endif %}
+    </ul>
+{% endblock %} {% block main %}
+    <div class="container">
+        <main>
+            <!-- Main component for a primary marketing message or call to action -->
+            <div id="about"></div>
+             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <div class="carousel-caption">
+                            <div class="img-wrapper">
+                                <div
+                                    class="parallax"
+                                    style="background-image: url(/static/src/slide1.jpg);"></div>
+                                <div class="img-overlay">
+                                    <p class="middle">
+                                        <a
+                                            class="button button-outlined button-white button-lg inactiveLink ptsans"
+                                            data-wow-delay="0.7s" href="/demo">BikeMates</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+
+                        <div class="carousel-caption">
+                            <div class="img-wrapper">
+                                <div
+                                    class="parallax"
+                                    style="background-image: url(/static/src/slide2.jpg);"></div>
+                                <div class="img-overlay">
+                                    <p class="middle">
+                                        <a
+                                            class="button button-outlined button-white button-lg inactiveLink ptsans"
+                                            data-wow-delay="0.7s">BikeMates</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                     <div class="item">
+
+                        <div class="carousel-caption">
+                            <div class="img-wrapper">
+                                <div
+                                    class="parallax"
+                                    style="background-image: url(/static/src/slide3.jpg);"></div>
+                                <div class="img-overlay">
+                                    <p class="middle">
+                                        <a
+                                            class="button button-outlined button-white button-lg inactiveLink ptsans"
+                                            data-wow-delay="0.7s">BikeMates</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron" style="background: rgb(255, 255, 255)">
+                <h3>Куда я попал?</h3>
+                <h5>
+                    <small>Это - новый сервис для велосипедистов, который поможет сделать каждую покатушку на велике
+                        лучше.<br>
+                        Веломастерские, шиномонтажи, пункты проката и даже другие пользователи сервиса, с которыми можно
+                        прокатиться вместе - всё это вы найдете на BikeMates.
+                        <br>
+                        <center><a class="btn btn-lg btn-outline btn-primary" href="/demo">Узнать больше о нас</a>
+                            <center>
+                                </h4>
+                            </center>
+                        </center>
+                    </small>
+                </h5>
+            </div>
+        </main>
+        <center>
+            <footer class="navbar-fixed-bottom">
+                © Промтим 2к17
+            </footer>
+        </center>
+    </div>
+{% endblock %}

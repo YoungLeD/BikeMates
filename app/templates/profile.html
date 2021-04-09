@@ -1,0 +1,129 @@
+{% extends "base.html" %} {% block head %}
+    <title>BikeMates - Profile</title>
+    <script src="{{ url_for('static', filename='js/api/v1.0/api_init.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/api/v1.0/api_ajax.js') }}" type="text/javascript"></script>
+    <script>
+        refresh_token();
+    </script>
+    <script src="{{ url_for('static', filename='js/api/v1.0/events.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/api/v1.0/users.js') }}" type="text/javascript"></script>
+    <script>
+        function event_to_html(current_event) {
+            var html_hack;
+            var d = new Date(current_event.date_time * 1000);
+            html_hack = '<div class="col-xs-4">' +
+                '<strong>Название события: </strong><div class="text-justify">' + current_event.name + '</div>' +
+                '<strong>Описание события: </strong><div class="text-justify">' + current_event.description + '</div>' +
+                '<strong>Создано: </strong><div class="text-justify">' + d + '</div>' +
+                '<div class="hr2"></div>' +
+                '</div>';
+            return html_hack
+        }
+    </script>
+{% endblock %} {% block navbar %}
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="/profile">Профиль</a></li>
+        <li><a href="/events">Карта</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                {{ username }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/edit">Редактировать профиль</a></li>
+                <li class="red"><a href="/logout">Выйти</a></li>
+            </ul>
+    </ul>
+{% endblock %} {% block main %}
+    <div class="container">
+        <main>
+            <!--xs (extra small) — для мобильных телефонов, до 767 пикс. включительно-->
+            <!--sm (small) — для планшетов, размер экрана 768—991 пикс.-->
+            <!--md (middle) — для десктопов, 992—1199 пикс.-->
+            <!--lg (large) — для больших экранов, от 1200 пикс.-->
+            <br>
+            <div class="row" style="margin-top: 32px; margin-left: 48px">
+                <div class="col-sm-4 center">
+                    <img src='/{{ avatar }}' class="img-rounded  img-responsive" id="avatar">
+                </div>
+                <div class="col-sm-8">
+                    <div class="container-fluid">
+                        <div class="user_name" id="username">
+                            <h3>{{ user.name }}</h3>
+                        </div>
+                        <div class="user_about">
+                            {% if user.bdate %}
+                                <h5><strong>Дата рождения:</strong><span
+                                        style="font-weight:normal"> {{ user.get_bdate() }}<br>
+                                </span></h5>
+                            {% else %}
+
+                            {% endif %}
+                            {% if user.about %}
+                                <h5>
+                                    <strong>О себе: </strong><span
+                                        style="font-weight:normal;word-wrap:break-word">{{ user.about }}</span>
+                                </h5>
+                                <br>
+                            {% else %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- True Bydlocode -->
+            <br>
+            <br>
+            <!-- It is true, lol -->
+            <ul class="nav nav-justified">
+                <li class="active" style="border-right: 1px solid #00000020;"><a data-toggle="tab" href="#part"><h5>
+                    Участвую</h5></a></li>
+                <li><a data-toggle="tab" href="#created"><h5>Создал</h5></a></li>
+
+            </ul>
+            <div class="tab-content">
+                <div id="part" class="tab-pane fade in active">
+                    <div class="row" id="part_row">
+                    </div>
+                </div>
+                <div id="created" class="tab-pane fade">
+                    <div class="row" id="created_row"></div>
+                </div>
+            </div>
+        </main>
+        <center>
+            <footer class="navbar-fixed-bottom">
+                © Промтим 2к17
+            </footer>
+        </center>
+    </div>
+    <script>
+        var events = get_user_by_id({{ user.id }}, ["events", "created_events"]);
+
+
+        var part_events = events.events;
+        var created_events = events.created_events;
+        if (part_events.length) {
+            for (var i = 0; i < part_events.length; i++) {
+                current_event = get_event_by_id(part_events[i], ["name", "description", "coords", "date_time"]);
+                $('#part_row').append(event_to_html(current_event));
+            }
+        }
+        else {
+            $('#part_row').html("<center><h4>Я пока не участвую в ивентах :с<br></h4></center>");
+
+        }
+
+        if (created_events.length) {
+            for (var i = 0; i < created_events.length; i++) {
+                var current_event = get_event_by_id(created_events[i], ["name", "description", "coords", "date_time"]);
+                $('#created_row').append(event_to_html(current_event));
+            }
+        }
+        else {
+            $('#created_row').html("<center><h4>Я пока не создал ни одного ивента :с<br></h4></center>");
+        }
+    </script>
+{% endblock %}

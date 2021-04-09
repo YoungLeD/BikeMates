@@ -1,0 +1,108 @@
+
+.navbar, .dropdown-menu{
+background:rgb(255,255,255);
+border: none;
+  color:#000000;
+
+}
+
+.nav>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a, .dropdown-menu>li{
+  border-bottom: 3px solid transparent;
+    color:#000000;
+}
+.nav>li>a:focus, .nav>li>a:hover,.nav .open>a, .nav .open>a:focus, .nav .open>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+  border-bottom: 3px solid transparent;
+  background: none;
+  color:#000000;
+}
+.navbar a, .dropdown-menu>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+ color: #000000;
+}
+.dropdown-menu{
+      -webkit-box-shadow: none;
+    box-shadow:none;
+}
+
+.nav li:hover:nth-child(8n+1), .nav li.active:nth-child(8n+1){
+  border-bottom: #2098ee 3px solid;
+}
+.nav li:hover:nth-child(8n+2), .nav li.active:nth-child(8n+2){
+  border-bottom: #2098ee 3px solid;
+}
+.nav li:hover:nth-child(8n+3), .nav li.active:nth-child(8n+3){
+  border-bottom: #2098ee 3px solid;
+}
+.nav li:hover:nth-child(8n+4), .nav li.active:nth-child(8n+4){
+  border-bottom: #2098ee 3px solid;
+}
+.nav li:hover:nth-child(8n+5), .nav li.active:nth-child(8n+5){
+  border-bottom: #2098ee 3px solid;
+}
+.nav li:hover:nth-child(8n+6), .nav li.active:nth-child(8n+6){
+  border-bottom: #2098ee 3px solid;
+}
+.nav li:hover:nth-child(8n+7), .nav li.active:nth-child(8n+7){
+  border-bottom: #2098ee 3px solid;
+}
+.nav li:hover:nth-child(8n+8), .nav li.active:nth-child(8n+8){
+  border-bottom: #2098ee 3px solid;
+}
+
+.navbar-toggle
+{
+    position:relative;
+    float:right;
+    padding:9px 10px;
+    margin-top:20px;
+    margin-right:10px;
+    margin-bottom:10px;
+    background-color:transparent;
+    background-image:none;
+    border:1px solid #444;          /* added line */
+    border-radius:4px
+}
+.icon-bar
+{
+    display:block;
+    width:22px;
+    height:2px;
+    border-radius:1px;
+    border:1px solid #444;
+}
+
+
+@media only screen and (max-width : 768px){
+.example-8 .navbar-brand {
+padding: 0px;
+transform: translateX(-50%);
+left: 50%;
+position: absolute;
+}
+.example-8 .navbar-brand>img {
+height: 100%;
+width: auto;
+/*padding: 7px 14px;*/
+}
+}
+
+
+.right{
+  margin-right: 60px;
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 15px;
+  width: auto;
+}
+
+.example-8 .navbar-brand {
+  background: url(../src/logo.png) center / contain no-repeat;
+  width: 200px;
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}

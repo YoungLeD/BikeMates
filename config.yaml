@@ -1,0 +1,26 @@
+SECRET_KEY: 'test'
+ALLOWED_EXTENSIONS: ['png', 'jpg', 'gif']
+
+database:
+    host: 127.0.0.1
+    port: 5432
+    user: bikemates
+    password: bikemates
+    dbname: bikemates
+    salt: you-shall-not-pass
+
+SQLAlchemy:
+  # SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future
+  SQLALCHEMY_TRACK_MODIFICATIONS: False
+
+JWT:
+  JWT_ACCESS_TOKEN_EXPIRES_TIMEDELTA:
+    minutes: 15
+  JWT_REFRESH_TOKEN_EXPIRES_TIMEDELTA:
+    days: 30
+  JWT_TOKEN_LOCATION: 'headers'
+  JWT_HEADER_NAME: 'Authorization'
+  JWT_HEADER_TYPE: 'Bearer'
+
+Flask_Login:
+  LOGIN_VIEW: 'sign_in'

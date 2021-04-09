@@ -1,0 +1,111 @@
+{% extends "base.html" %} {% block head %}
+    <title>BikeMates - About</title>
+    <link rel='stylesheet' href="{{ url_for('static', filename='js/fullpage/jquery.fullPage.css') }}" type='text/css'
+          media='all'>
+    <script src="{{ url_for('static', filename='js/fullpage/jquery.fullPage.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fullpage').fullpage({
+                verticalCentered: true,
+                loopHorizontal: false,
+                sectionsColor: ['#ccc', '#fff']
+            });
+        });
+    </script>
+{% endblock %}
+{% block navbar %}
+    <ul class="nav navbar-nav">
+        {% if not current.is_authenticated %}
+            <li><a href="/">Главная</a></li>
+            <li class="active"><a href="/about">О нас </a></li>
+        {% else %}
+            <li><a href="/profile">Профиль</a></li>
+            <li><a href="/events">Карта</a></li>
+            <li class="active"><a href="/about">О нас</a></li>
+        {% endif %}
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        {% if not current.is_authenticated %}
+            <li><a href="/sign_in"> Войти </a></li>
+            <li><a href="/sign_up"> Зарегистрироваться </a></li>
+        {% else %}
+            <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                {{ current.name }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/edit">Редактировать профиль</a></li>
+                <li class="red"><a href="/logout">Выйти</a></li>
+            </ul>
+        {% endif %}
+    </ul>
+{% endblock %}
+{% block main %}
+    <div id="fullpage">
+        <div class="section text-center">
+            <div class="slide container" data-anchor="slide1"><h1 class="text-center" style="color: #FFFFFF"> Кто мы
+                такие? </h1></div>
+            <div class="slide container" data-anchor="slide2">
+                <p class="text-center">
+                    Мы - небольшая команда из московского отделения ШП, которой нужно было запилить дипломную
+                    работу.
+                </p>
+                <div class="row">
+                    <center><p><strong>Андрей Смирнов,</strong> менеджер проекта <br> <strong>Исаак
+                        Калинкин,</strong>
+                        тимлид проекта</p></center>
+                </div>
+            </div>
+            <div class="slide container" data-anchor="slide3">
+                <h4> Команда фронтенд разработки: </h4>
+                <br>
+                <p><strong> Дмитрий Никулин,</strong> тимлид, десигнер</p><br>
+                <p><strong> Александр Николенко,</strong> передовой разработчик, шарит в API и JS (но
+                    это не
+                    точно)</p><br>
+                <p><strong> Виталий Каленик,</strong> разработчик, "МИРЭА > ВШЭ"</p><br>
+                <p><strong> Никита Бульчук,</strong> разработчик, "А я тут сервис один придумал"</p><br>
+                <p><strong> Стас Дон, разработчик,</strong> "АААА, Я ПОЧИНИЛ СКРОЛЛ"</p><br>
+                <p><strong> Николай Окуньков,</strong> разработчик, "Митя, где таски?"</p><br>
+                <p><strong> Давид Молчанов,</strong> разработчик, судя по всему стал призраком</p><br>
+            </div>
+            <div class="slide container" data-anchor="slide4">
+                <h4> Команда бэкэнд разработки: </h4>
+                <br>
+                <p><strong> Максим Денисов,</strong> тимлид </p><br>
+                <p><strong> Артём Козинцев,</strong> разработчик, человек-тестировщик </p><br>
+                <p><strong> Арсений Митин,</strong> разработчик, "Может апи прикрутим? Это вроде изи."
+                </p>
+                <br>
+                <p><strong> Дмитрий Калашников,</strong> разработчик, "DROP DATABASE bikemates;" </p>
+                <br>
+                <p><strong> Алексей Мастуров,</strong> разработчик, замаскированный фронтендер </p><br>
+                <p><strong> Алексей Золотов,</strong> разработчик, "Я сейчас буду находить все события!"
+                </p><br>
+                <p><strong> Игорь Дробященко,</strong> разработчик, шарит в Excel </p><br>
+                <p><strong> Дмитрий Лопатин,</strong> разработчик, чего-то добился в жизни </p><br>
+            </div>
+        </div>
+        <div class="section container" data-centered="true">
+            <h3> Окей, а как вы придумали этот клёвый сервис? </h3>
+            <p class="text-left">
+                Время офигительных историй. Сдали мы свой первый проект и потихоньку приближались к концу
+                первого
+                полугодия, где мы должны были бы запилить ещё один проект, но все решили начать делать дипломную
+                работу, потому что времени будет больше. Посмотрев на список,
+                мы поняли, что делать из него мы хотели ровным счётом ничего. И тут Никита Бульчук (труЪ
+                front-end
+                разработчик) предложил идею создать сервис для велосипедистов на котором Вы сейчас и сидите.
+            </p>
+        </div>
+        <div class="section container" data-centered="true">
+            <h3> А что вы планируете запилить дальше? </h3>
+            <p class="text-left">
+                Скорее всего, мы просто будем поддерживать и обновлять BikeMates, чтобы предоставить самый
+                лучший
+                экспириенс, который можем. Если мы что-то и сделаем, то вы точно узнаете об этом первыми.
+            </p>
+        </div>
+    </div>
+{% endblock %}
